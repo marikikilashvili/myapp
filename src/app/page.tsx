@@ -1,5 +1,6 @@
+import Cards from "./Cards/Cards";
 import Header from "./components/Header/Header";
-import Hero from "./components/Hero/Hero"; // Corrected import
+import Hero from "./Hero/Hero"; // Corrected import
 import styles from "./page.module.css"; // Removed duplicate import
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <div className={styles.page}>
       <Header />
       <Hero />
+      <Cards />
     </div>
   );
 }

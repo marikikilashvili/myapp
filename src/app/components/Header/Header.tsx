@@ -1,3 +1,4 @@
+"use client";
 import clsx from "clsx";
 import styles from "./Header.module.css";
 import React from "react";
@@ -17,7 +18,7 @@ function Header({}: Props) {
           placeholder="search"
         />
         <img
-          src="./public/images/Search.svg"
+          src="./images/Search.svg"
           alt="search icon"
           className={clsx(styles["searchIcon"])}
         />
