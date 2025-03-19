@@ -19,12 +19,8 @@ const Hero = (props: Props) => {
           <button className={styles.shopNow}>Shop Now</button>
         </div>
         <div className={styles.hero2}>
-          <img className={styles.phone} src="./images/phone.png" alt="" />
-          <img
-            className={styles.phoneCut}
-            src="./images/phone-cut.png"
-            alt=""
-          />
+          <img className={styles.phone} src="/images/phone.png" alt="" />
+          <img className={styles.phoneCut} src="/images/phone-cut.png" alt="" />
         </div>
       </div>
     </div>

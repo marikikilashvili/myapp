@@ -1,0 +1,253 @@
+.shopCards {
+  display: flex;
+  flex-direction: column;
+}
+.shopping {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: #000;
+}
+.shopCard {
+  display: flex;
+  margin-top: 40px;
+}
+.shopPhone {
+  margin-top: 16px;
+
+  margin-right: 15px;
+  width: 90px;
+  height: 90px;
+}
+.shop1 {
+  display: flex;
+}
+.shopH2p {
+  width: 193px;
+  margin-top: 21px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.select {
+  display: flex;
+  text-align: center;
+  margin-top: 49px;
+  width: 104px;
+  justify-content: space-between;
+}
+.shopCard {
+  padding-bottom: 32px;
+  border-bottom-width: 0.5px;
+}
+.minus,
+.plus,
+.close .img {
+  width: 24px;
+  height: 24px;
+}
+.erti {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0%;
+  border-radius: 4px;
+  border-width: 0.5px;
+  border-color: #d9d9d9;
+}
+.shopDollar .p {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: 3%;
+  margin-left: 24px;
+  margin-right: 22px;
+}
+.close {
+  margin-top: 49px;
+}
+.shopDollar {
+  margin-top: 50px;
+}
+.shopH2p .h2 {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+.shopH2P .p {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+.hr {
+  color: #a3a3a3;
+  max-width: 536px;
+}
+.section {
+  padding-top: 112px;
+  padding-bottom: 112px;
+  display: flex;
+  justify-content: space-between;
+}
+.pDollars {
+  display: flex;
+  flex-direction: column;
+}
+.pDollar {
+  display: flex;
+  /* width: 408px; */
+
+  justify-content: space-between;
+}
+.order {
+  width: 408px;
+  height: 488px;
+}
+.nav {
+  width: 536px;
+  height: 656px;
+  padding: 56px 64px;
+  border-radius: 10px;
+  border: 1px solid #ebebeb;
+}
+.checkout {
+  width: 408px;
+  height: 56px;
+  margin-top: 48px;
+}
+.order .h2 {
+  margin-bottom: 40px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  color: #111111;
+}
+.order .h3 {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  padding-bottom: 8px;
+  color: #545454;
+}
+.order .input {
+  margin-bottom: 24px;
+  width: 408px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  border-radius: 7px;
+  border: 0.5px solid #9f9f9f;
+  color: #979797;
+}
+.code {
+  height: 56px;
+}
+.pDollars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.subtotal {
+  margin-bottom: 8px;
+}
+.total {
+  margin-top: 8px;
+}
+.estimated {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+  letter-spacing: 0%;
+  color: #545454;
+}
+.subtotal,
+.total,
+.pDollar .h3 {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  letter-spacing: 3%;
+  color: #000000;
+}
+@media only screen and (max-width: 1160px) {
+  .section {
+    padding-top: 112px;
+    padding-bottom: 112px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+    gap: 40px;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .nav {
+    width: 341px;
+    height: 656px;
+    padding: 56px 16px;
+    border-radius: 10px;
+    border: 1px solid #ebebeb;
+  }
+  .order {
+    width: 309px;
+    height: 488px;
+  }
+  .checkout {
+    width: 309px;
+  }
+  .order .input {
+    margin-bottom: 24px;
+    width: 309px;
+  }
+  .pDollar {
+    display: flex;
+    /* width: 309px; */
+
+    justify-content: space-between;
+  }
+  .shopCard {
+    display: flex;
+    margin-top: 40px;
+    flex-direction: column;
+  }
+  .qvesh {
+    margin-left: 105px;
+    margin-top: -56px;
+  }
+}
+
+.qvesh1 {
+  display: flex;
+}
+.qvesh {
+  display: flex;
+}
+.inputContainer {
+  position: relative;
+}
+.applyBtn {
+  width: 76px;
+  height: 32px;
+  gap: 8px;
+  border-radius: 6px;
+  border-width: 1px;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  background-color: #fff;
+  color: #000;
+}
+.enter {
+  height: 64px;
+}
+.container {
+  max-width: 1120px;
+  width: 100%;
+  margin: auto;
+}

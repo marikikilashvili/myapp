@@ -118,27 +118,7 @@ function Cards({}: Props) {
         </div>
       </div>
 
-      <div className={styles.grey}>
-        <div className={styles.container}>
-          <div className={styles.browseArrows}>
-            <div className={styles.browse}>
-              <p>Browse By Category</p>
-            </div>
-            <div className={styles.arrows}>
-              <img
-                src="/images/Arrow1.svg"
-                alt="Arrow Left"
 
-              />
-              <img
-                src="/images/Arrow2.svg"
-                alt="Arrow Right"
-
-              />
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 }
