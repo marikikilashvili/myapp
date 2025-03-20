@@ -27,9 +27,9 @@ function Header({}: Props) {
       <div className={clsx(styles.lis4)}>
         <ul className={clsx(styles.li4)}>
           <li>
-          <Link href="/home" className={styles.a}>
-    Home
-  </Link>
+            <Link href="/" className={styles.a}>
+              home
+            </Link>
           </li>
           <li>
             <a className={clsx(styles.a)} href="#about">

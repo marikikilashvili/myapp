@@ -2,6 +2,7 @@
 import clsx from "clsx";
 import styles from "./Cards1.module.css";
 import React from "react";
+import categories from "@/data/index.json";
 
 type Props = {};
 
@@ -14,37 +15,19 @@ function Cards1({}: Props) {
             <p>Browse By Category</p>
           </div>
           <div className={styles.arrows}>
-            <img src="/images/Arrow1.svg" alt="" />
-            <img src="/images/Arrow2.svg" alt="" />
+            <img src="/images/Arrow1.svg" alt="Previous" />
+            <img src="/images/Arrow2.svg" alt="Next" />
           </div>
         </div>
       </div>
 
       <div className={clsx(styles.cards1, styles.container)}>
-        <div className={styles.card}>
-          <img src="/images/small-Phone.svg" alt="" />
-          <p>Phones</p>
-        </div>
-        <div className={styles.card}>
-          <img src="/images/small-Phone.svg" alt="" />
-          <p>Phones</p>
-        </div>
-        <div className={styles.card}>
-          <img src="/images/small-Phone.svg" alt="" />
-          <p>Phones</p>
-        </div>
-        <div className={styles.card}>
-          <img src="/images/small-Phone.svg" alt="" />
-          <p>Phones</p>
-        </div>
-        <div className={styles.card}>
-          <img src="/images/small-Phone.svg" alt="" />
-          <p>Phones</p>
-        </div>
-        <div className={styles.card}>
-          <img src="/images/small-Phone.svg" alt="" />
-          <p>Phones</p>
-        </div>
+        {categories.map((category) => (
+          <div className={styles.card} key={category.id}>
+            <img src={category.img} alt={category.name} />
+            <p>{category.name}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
