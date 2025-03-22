@@ -11,6 +11,7 @@ function Cards2({ products = [] }: Cards2Props) {
   const { addToCart } = useCart();
 
   const handleBuyNow = (product: Product) => {
+    console.log("Adding to cart:", product); // Add this log
     const cartItem: CartItem = {
       id: product.id,
       name: product.name,
