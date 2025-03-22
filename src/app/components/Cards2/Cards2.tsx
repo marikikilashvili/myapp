@@ -1,4 +1,5 @@
 "use client";
+import React, { useState } from "react"; // Add React import
 import styles from "./Cards2.module.css";
 import { Product, CartItem } from "@/types";
 import { useCart } from "@/context/cartContext";
@@ -9,18 +10,35 @@ interface Cards2Props {
 
 function Cards2({ products = [] }: Cards2Props) {
   const { addToCart } = useCart();
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [addedProduct, setAddedProduct] = useState<string>("");
+
+  const renderName = (name: string) => {
+    const parts = name.split("<br>");
+    return parts.map((part, index) => (
+      <React.Fragment key={index}>
+        {part}
+        {index < parts.length - 1 && <br className={styles.br} />}
+      </React.Fragment>
+    ));
+  };
 
   const handleBuyNow = (product: Product) => {
-    console.log("Adding to cart:", product); // Add this log
     const cartItem: CartItem = {
       id: product.id,
       name: product.name,
       price: parseFloat(product.price.replace(/[^0-9.]/g, "")),
       img: product.img,
-      code: product.code,
+      code: product.code || null,
       quantity: 1,
     };
     addToCart(cartItem);
+    setAddedProduct(product.name);
+    setShowConfirmation(true);
+  };
+
+  const handleCloseConfirmation = () => {
+    setShowConfirmation(false);
   };
 
   return (
@@ -38,7 +56,7 @@ function Cards2({ products = [] }: Cards2Props) {
               src={product.img}
               alt={product.name}
             />
-            <p className={styles.apple}>{product.name}</p>
+            <p className={styles.apple}>{renderName(product.name)}</p>
             <p className={styles.dollar}>{product.price}</p>
             <button
               className={styles.buyNow}
@@ -50,6 +68,20 @@ function Cards2({ products = [] }: Cards2Props) {
           </div>
         ))}
       </div>
+
+      {showConfirmation && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <p>Product "{addedProduct}" added to cart!</p>
+            <button
+              className={styles.okButton}
+              onClick={handleCloseConfirmation}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

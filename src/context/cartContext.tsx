@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { CartItem } from "@/types";
 
 interface CartContextType {
@@ -12,13 +12,17 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cart, setCart] = useState<CartItem[]>(() => {
+  const [cart, setCart] = useState<CartItem[]>([]); // Start empty on both server and client
+
+  // Load cart from localStorage only on client after mount
+  useEffect(() => {
     if (typeof window !== "undefined") {
       const savedCart = localStorage.getItem("cart");
-      return savedCart ? JSON.parse(savedCart) : [];
+      if (savedCart) {
+        setCart(JSON.parse(savedCart));
+      }
     }
-    return [];
-  });
+  }, []); // Empty dependency array: runs once after mount
 
   const addToCart = (item: CartItem) => {
     setCart((prev) => {
@@ -30,7 +34,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
         : [...prev, { ...item, quantity: 1 }];
       if (typeof window !== "undefined") {
         localStorage.setItem("cart", JSON.stringify(updatedCart));
-        console.log("Cart updated:", updatedCart);
       }
       return updatedCart;
     });
@@ -39,14 +42,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const updateQuantity = (id: number, quantity: number) => {
     setCart((prev) => {
       if (quantity <= 0) {
-        // Remove item if quantity reaches 0 or below
         const updatedCart = prev.filter((item) => item.id !== id);
         if (typeof window !== "undefined") {
           localStorage.setItem("cart", JSON.stringify(updatedCart));
         }
         return updatedCart;
       }
-      // Update quantity otherwise
       const updatedCart = prev.map((item) =>
         item.id === id ? { ...item, quantity } : item
       );

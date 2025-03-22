@@ -31,6 +31,7 @@
   gap: 8px;
 }
 .select {
+  align-items:center;
   display: flex;
   text-align: center;
   margin-top: 49px;
@@ -43,9 +44,12 @@
 }
 .minus,
 .plus,
-.close .img {
+.close .img{
   width: 24px;
   height: 24px;
+}
+.minus{
+  margin-top:5px;
 }
 .erti {
   font-weight: 500;
@@ -55,7 +59,7 @@
   border-width: 0.5px;
   border-color: #d9d9d9;
 }
-.shopDollar .p {
+.shopDollar {
   font-weight: 500;
   font-size: 20px;
   line-height: 32px;
@@ -224,9 +228,12 @@
 
 .qvesh1 {
   display: flex;
+  align-items:center;
+
 }
 .qvesh {
   display: flex;
+  align-items:center;
 }
 .inputContainer {
   position: relative;

@@ -1,18 +1,19 @@
 "use client";
 import clsx from "clsx";
 import styles from "./shopping.module.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useCart } from "@/context/cartContext";
 
 export default function Shopping() {
   const { cart: cartItems, updateQuantity, removeFromCart } = useCart();
+  const [summary, setSummary] = useState({
+    subtotal: 0,
+    tax: 0,
+    shipping: 0,
+    total: 0,
+  });
 
-  React.useEffect(() => {
-    console.log("Current cart in Shopping:", cartItems);
-    updateOrderSummary();
-  }, [cartItems]);
-
-  const updateOrderSummary = () => {
+  useEffect(() => {
     const subtotal = cartItems.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0
@@ -21,18 +22,8 @@ export default function Shopping() {
     const shipping = subtotal * 0.1;
     const total = subtotal + tax + shipping;
 
-    if (typeof document !== "undefined") {
-      const updateElement = (id: string, value: number) => {
-        const element = document.getElementById(id);
-        if (element) element.textContent = `$${value.toFixed(2)}`;
-      };
-
-      updateElement("subtotal", subtotal);
-      updateElement("tax", tax);
-      updateElement("shipping", shipping);
-      updateElement("total", total);
-    }
-  };
+    setSummary({ subtotal, tax, shipping, total });
+  }, [cartItems]);
 
   return (
     <section className={clsx(styles.container, styles.section)}>
@@ -68,12 +59,12 @@ export default function Shopping() {
               </div>
               <div className={styles.qvesh}>
                 <div className={styles.select}>
-                  <img
+                  <div
                     className={styles.minus}
-                    src="/images/No Edit.svg"
-                    alt="Decrease quantity"
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                  />
+                  >
+                    −
+                  </div>
                   <p className={styles.erti}>{item.quantity}</p>
                   <img
                     className={styles.plus}
@@ -106,27 +97,19 @@ export default function Shopping() {
           <div className={styles.pDollars}>
             <div className={styles.pDollar}>
               <p className={styles.subtotal}>Subtotal</p>
-              <h3 className={styles.h3} id="subtotal">
-                $0.00
-              </h3>
+              <h3 className={styles.h3}>${summary.subtotal.toFixed(2)}</h3>
             </div>
             <div className={styles.pDollar}>
               <p className={styles.estimated}>Estimated Tax</p>
-              <h3 className={styles.h3} id="tax">
-                $0.00
-              </h3>
+              <h3 className={styles.h3}>${summary.tax.toFixed(2)}</h3>
             </div>
             <div className={styles.pDollar}>
               <p className={styles.estimated}>Shipping & Handling</p>
-              <h3 className={styles.h3} id="shipping">
-                $0.00
-              </h3>
+              <h3 className={styles.h3}>${summary.shipping.toFixed(2)}</h3>
             </div>
             <div className={styles.pDollar}>
               <p className={styles.total}>Total</p>
-              <h3 className={styles.h3} id="total">
-                $0.00
-              </h3>
+              <h3 className={styles.h3}>${summary.total.toFixed(2)}</h3>
             </div>
           </div>
           <button className={clsx(styles.checkout, styles.shopNow)}>
