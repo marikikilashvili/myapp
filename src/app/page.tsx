@@ -27,9 +27,10 @@ import Cards3 from "./components/Cards3/Cards3";
 import Hero from "./components/Hero/Hero";
 import styles from "./page.module.css";
 import Wreli from "./components/Wreli/Wreli";
-import productsData from "@/data/cards2.json";
+import rawProductsData from "@/data/cards2.json";
+import { Product } from "@/types";
 
-const productsData = require("@/data/cards2.json") as Product[];
+const productsData = rawProductsData as unknown as Product[];
 
 export default function Home() {
   return (

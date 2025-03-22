@@ -1,34 +1,25 @@
-// "use client";
-// import clsx from "clsx";
-// import styles from "./Cards2.module.css";
-// import React from "react";
-// import products from "@/data/cards2.json";
-
 "use client";
 import styles from "./Cards2.module.css";
-import { Product } from "@/types";
+import { Product, CartItem } from "@/types";
 import { useCart } from "@/context/cartContext";
 
 interface Cards2Props {
   products?: Product[];
 }
 
-// Add proper formatName function
-const formatName = (name: string) => {
-  return { __html: name.replace(/<br>/g, "<br/>") };
-};
-
 function Cards2({ products = [] }: Cards2Props) {
   const { addToCart } = useCart();
 
   const handleBuyNow = (product: Product) => {
-    addToCart({
+    const cartItem: CartItem = {
       id: product.id,
       name: product.name,
-      price: parseFloat(product.price.replace("$", "")),
+      price: parseFloat(product.price.replace(/[^0-9.]/g, "")),
       img: product.img,
       code: product.code,
-    });
+      quantity: 1,
+    };
+    addToCart(cartItem);
   };
 
   return (
@@ -46,12 +37,14 @@ function Cards2({ products = [] }: Cards2Props) {
               src={product.img}
               alt={product.name}
             />
-            <p
-              className={styles.apple}
-              dangerouslySetInnerHTML={formatName(product.name)}
-            />
+            <p className={styles.apple}>{product.name}</p>
             <p className={styles.dollar}>{product.price}</p>
-            <button className={styles["buy-now"]}>Buy Now</button>
+            <button
+              className={styles.buyNow}
+              onClick={() => handleBuyNow(product)}
+            >
+              Buy Now
+            </button>
             <img className={styles.heart} src="/images/Like.svg" alt="Like" />
           </div>
         ))}

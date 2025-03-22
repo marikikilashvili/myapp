@@ -2,38 +2,41 @@
 import clsx from "clsx";
 import styles from "./shopping.module.css";
 import React, { useEffect, useState } from "react";
-
-// interface CartItem {
-//   id: string;
-//   name: string;
-//   code: string;
-//   price: number;
-//   img: string;
-//   quantity: number;
-// }
+import { CartItem } from "@/types";
 
 export default function Shopping() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [showEmptyCart, setShowEmptyCart] = useState(false);
 
-  // Load cart from localStorage on mount
+  // Load cart from localStorage
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
-      setCartItems(JSON.parse(savedCart));
+      try {
+        const parsedItems: CartItem[] = JSON.parse(savedCart).map(
+          (item: any) => ({
+            ...item,
+            id: Number(item.id),
+            price: Number(item.price),
+            quantity: Number(item.quantity),
+          })
+        );
+        setCartItems(parsedItems);
+      } catch (error) {
+        console.error("Error parsing cart:", error);
+      }
     }
   }, []);
 
-  // Update order summary and empty cart state
+  // Update cart and summary
   useEffect(() => {
     updateOrderSummary();
     setShowEmptyCart(cartItems.length === 0);
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const updateQuantity = (id: string, newQuantity: number) => {
+  const updateQuantity = (id: number, newQuantity: number) => {
     if (newQuantity < 1) return;
-
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: newQuantity } : item
@@ -41,7 +44,7 @@ export default function Shopping() {
     );
   };
 
-  const removeItem = (id: string) => {
+  const removeItem = (id: number) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
@@ -54,7 +57,6 @@ export default function Shopping() {
     const shipping = subtotal * 0.1;
     const total = subtotal + tax + shipping;
 
-    // Update DOM elements directly since this is a client component
     if (typeof document !== "undefined") {
       const updateElement = (id: string, value: number) => {
         const element = document.getElementById(id);
@@ -75,8 +77,12 @@ export default function Shopping() {
 
         {showEmptyCart && (
           <div className={styles.noItems}>
-            <img className={styles.img} src="images/no-items.jpg" alt="No items in cart" />
-            <p>Your cart is empty.</p>
+            <img
+              className={styles.img}
+              src="/images/no-items.jpg"
+              alt="Empty cart"
+            />
+            <p>Your cart is empty</p>
           </div>
         )}
 
@@ -100,7 +106,7 @@ export default function Shopping() {
                 <div className={styles.select}>
                   <img
                     className={styles.minus}
-                    src="/images/No Edit.svg"
+                    src="/images/No-Edit.svg"
                     alt="Decrease quantity"
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
                   />
@@ -130,55 +136,40 @@ export default function Shopping() {
         ))}
       </div>
 
-      {/* Order Summary - Keep your existing order summary JSX here */}
       <nav className={styles.nav}>
         <div className={styles.order}>
           <h2 className={styles.h2}>Order Summary</h2>
-          <h3 className={styles.h3}>Discount code / Promo code</h3>
-          <input
-            className={clsx(styles.code, styles.input)}
-            type="text"
-            placeholder="Code"
-          />
-          <h3 className={styles.h3}>Your bonus card number</h3>
-          <div className={styles.inputContainer}>
-            <input
-              className={clsx(styles.enter, styles.input)}
-              type="text"
-              placeholder="Enter Card Number"
-            />
-            <button className={styles.applyBtn}>Apply</button>
-          </div>
+
           <div className={styles.pDollars}>
             <div className={styles.pDollar}>
               <p className={styles.subtotal}>Subtotal</p>
-              <h3 className={clsx(styles.pDollar, styles.h3)} id="subtotal">
-                $0
+              <h3 className={styles.h3} id="subtotal">
+                $0.00
               </h3>
             </div>
+
             <div className={styles.pDollar}>
-              <p className={clsx(styles.estimated, styles.tax)}>
-                Estimated Tax
-              </p>
+              <p className={styles.estimated}>Estimated Tax</p>
               <h3 className={styles.h3} id="tax">
-                $0
+                $0.00
               </h3>
             </div>
+
             <div className={styles.pDollar}>
-              <p className={`${styles.estimated} ${styles.shipping}`}>
-                Estimated shipping & Handling
-              </p>
+              <p className={styles.estimated}>Shipping & Handling</p>
               <h3 className={styles.h3} id="shipping">
-                $0
+                $0.00
               </h3>
             </div>
+
             <div className={styles.pDollar}>
               <p className={styles.total}>Total</p>
               <h3 className={styles.h3} id="total">
-                $0
+                $0.00
               </h3>
             </div>
           </div>
+
           <button className={clsx(styles.checkout, styles.shopNow)}>
             Checkout
           </button>
