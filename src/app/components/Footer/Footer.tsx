@@ -11,7 +11,7 @@ function Footer({}: Props) {
       <div className={clsx(styles.container, styles.futeri)}>
         <div className={styles.we}>
           <img className={styles.logo1} src="/images/Logo1.svg" alt="Logo" />
-          <p>
+          <p className={styles.p}>
             We are a residential interior design firm located in <br />
             Portland. Our boutique-studio offers more than
           </p>
